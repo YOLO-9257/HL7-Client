@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备连接配置指南</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .highlight {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4caf50;
+            padding: 10px 15px;
+            margin: 20px 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>设备连接配置指南</h1>
+        
+        <p>HL7客户端支持多种设备连接类型，每种类型有不同的参数设置。本指南将帮助您正确配置各类设备连接。</p>
+        
+        <div class="highlight">
+            <strong>注意：</strong> 您可以通过设备管理面板中的"添加设备"和"编辑设备"按钮来配置设备连接参数。
+        </div>
+        
+        <h2>基本信息</h2>
+        <p>所有设备都需要填写以下基本信息：</p>
+        <ul>
+            <li><strong>设备名称</strong>：为设备指定一个易于识别的名称</li>
+            <li><strong>设备型号</strong>：设备的型号信息</li>
+            <li><strong>设备厂商</strong>：设备的生产厂商</li>
+            <li><strong>连接类型</strong>：选择设备的连接方式（网络、串口、文件或数据库）</li>
+        </ul>
+        
+        <h2>网络连接 (NETWORK)</h2>
+        <p>适用于通过TCP/IP网络连接的设备。参数包括：</p>
+        <ul>
+            <li><strong>主机地址</strong>：设备的IP地址或主机名</li>
+            <li><strong>端口</strong>：通信端口号(1-65535)</li>
+            <li><strong>协议</strong>：选择TCP或UDP协议</li>
+            <li><strong>连接模式</strong>：是否保持长连接</li>
+        </ul>
+        
+        <h3>示例格式</h3>
+        <p class="highlight">192.168.1.100:8088:TCP:true</p>
+        <p>表示TCP协议连接192.168.1.100服务器的8088端口，并保持长连接。</p>
+        
+        <h2>串口连接 (SERIAL)</h2>
+        <p>适用于通过串口连接的设备。参数包括：</p>
+        <ul>
+            <li><strong>端口名称</strong>：串口的名称(如COM1、COM2等)</li>
+            <li><strong>波特率</strong>：通信波特率(如9600、115200等)</li>
+            <li><strong>数据位</strong>：数据位数(5-8)</li>
+            <li><strong>停止位</strong>：停止位(1、1.5或2)</li>
+            <li><strong>校验位</strong>：校验方式(NONE、ODD、EVEN、MARK、SPACE)</li>
+        </ul>
+        
+        <h3>示例格式</h3>
+        <p class="highlight">COM1:9600:8:1:0</p>
+        <p>表示连接COM1端口，波特率9600，8位数据位，1位停止位，无校验。</p>
+        
+        <h2>文件连接 (FILE)</h2>
+        <p>适用于通过文件交换数据的设备。参数包括：</p>
+        <ul>
+            <li><strong>监视目录</strong>：需要监控的文件目录路径</li>
+            <li><strong>文件模式</strong>：要处理的文件匹配模式(如*.hl7)</li>
+            <li><strong>字符编码</strong>：文件的字符编码</li>
+            <li><strong>处理后删除</strong>：是否在处理后删除文件</li>
+        </ul>
+        
+        <h3>示例格式</h3>
+        <p class="highlight">C:/hl7data:*.hl7:UTF-8:true</p>
+        <p>表示监控C:/hl7data目录下的所有.hl7文件，使用UTF-8编码读取，处理后删除文件。</p>
+        
+        <h2>数据库连接 (DATABASE)</h2>
+        <p>适用于通过数据库交换数据的设备。参数包括：</p>
+        <ul>
+            <li><strong>数据库类型</strong>：数据库类型(MySQL、Oracle、SQL Server、Access)</li>
+            <li><strong>主机</strong>：数据库服务器地址</li>
+            <li><strong>端口</strong>：数据库服务端口</li>
+            <li><strong>数据库名</strong>：数据库名称或Access文件路径</li>
+            <li><strong>用户名</strong>：数据库用户名</li>
+            <li><strong>密码</strong>：数据库密码</li>
+            <li><strong>定时查询</strong>：是否启用定时查询</li>
+            <li><strong>查询间隔</strong>：定时查询的间隔时间(秒)</li>
+        </ul>
+        
+        <h3>MySQL/Oracle/SQL Server示例格式</h3>
+        <p class="highlight">MySQL:localhost:3306:hl7_db:root:password:true:60</p>
+        <p>表示连接本地MySQL数据库的hl7_db，用户名root，密码password，启用60秒定时查询。</p>
+        
+        <h3>Access示例格式</h3>
+        <p class="highlight">Access:C:/data/hl7.mdb:::true:30</p>
+        <p>表示连接C:/data/hl7.mdb Access数据库文件，启用30秒定时查询。</p>
+        
+        <h2>参数验证</h2>
+        <p>系统会自动验证您输入的参数是否有效，包括：</p>
+        <ul>
+            <li>端口号范围检查(1-65535)</li>
+            <li>必填字段检查</li>
+            <li>数值格式检查</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>提示：</strong> 使用可视化配置界面可以避免手动输入连接参数字符串的复杂性和错误。
+        </div>
+    </div>
+</body>
+</html> 

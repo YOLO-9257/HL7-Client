@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: hl7-client
+
+# 数据库配置
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+# 自定义通信配置
+communication:
+  # 是否自动启动通信
+  auto-start: true
+
+  # 串口配置
+  serial-ports:
+    - port-name: COM1
+      baud-rate: 9600
+      data-bits: 8
+      stop-bits: 1
+      parity: 0
+      device-model: BG800
+      enabled: true
+
+  # 网络配置
+  networks:
+    - host: 0.0.0.0
+      port: 8888
+      mode: SERVER
+      device-model: DEVICE_A
+      enabled: true
+    - host: 192.168.1.100
+      port: 9000
+      mode: CLIENT
+      device-model: DEVICE_B
+      enabled: false
+
+  # 设备配置
+  devices:
+    BG800:
+      name: 凝血仪
+      description: 凝血检测分析仪
+      message-type: HL7
+      parameters:
+        param1: value1
+    DEVICE_A:
+      name: 设备A
+      description: 网络服务器设备
+      message-type: HL7
+      parameters:
+        param1: value1
+    DEVICE_B:
+      name: 设备B
+      description: 网络客户端设备
+      message-type: JSON
+      parameters:
+        param1: value1
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.at.hl7.client: INFO
+    org.springframework: WARN

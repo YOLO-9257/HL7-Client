@@ -1,0 +1,11 @@
+[ {
+  "id" : "c12a0512-7161-4280-accf-26ee9978db52",
+  "name" : "222",
+  "model" : "Test01Parser",
+  "manufacturer" : "无敌",
+  "connectionType" : "NETWORK",
+  "status" : "CONNECTED",
+  "connectionParams" : "8088:TCP:SERVER",
+  "description" : null,
+  "messageType" : null
+} ]
