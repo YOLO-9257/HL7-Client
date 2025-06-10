@@ -1,0 +1,18 @@
+[Unit]
+Description=HL7 Client Service
+After=network.target
+
+[Service]
+Type=simple
+User=hl7user
+Group=hl7user
+WorkingDirectory=/opt/hl7-client
+ExecStart=/usr/bin/java -jar /opt/hl7-client/hl7-client.jar --headless
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=hl7-client
+
+[Install]
+WantedBy=multi-user.target 
