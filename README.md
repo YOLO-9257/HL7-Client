@@ -11,7 +11,7 @@
 
 ## 📋 项目简介
 
-HL7-Client是一个用于医疗设备通信的Java框架，支持串口和网络通信，能够自动处理HL7消息。该框架旨在简化医疗设备与信息系统之间的通信过程，只需增加配置即可实现自动监听、解析和发送数据。
+HL7-Client是一个用于医疗设备通信的Java框架，支持串口和网络通信，能够自动处理HL7消息。该框架旨在简化医疗设备与信息系统之间的通信过程，只需增加配置即可实现自动监听、解析和发送数据。框架采用优良的设计模式和类型安全的编码实践，提高了系统的稳定性和可维护性。
 
 ## ✨ 主要功能
 
@@ -30,8 +30,8 @@ HL7-Client是一个用于医疗设备通信的Java框架，支持串口和网络
 
 ```xml
 <dependency>
-    <groupId>com.ichoice.jsp.lis</groupId>
-    <artifactId>hsp-lis-hl7-client</artifactId>
+    <groupId>com.hl7.client</groupId>
+    <artifactId>hl7-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -167,6 +167,37 @@ public class CustomMessageHandler implements MessageHandlerDelegate {
         // 自定义消息处理逻辑
     }
 }
+```
+
+### 设备状态管理
+
+框架使用`DeviceStatus`枚举替代字符串常量来表示设备状态：
+
+```java
+public enum DeviceStatus {
+    /** 已连接 */
+    CONNECTED,
+
+    /** 未连接 */
+    DISCONNECTED,
+
+    /** 错误状态 */
+    ERROR;
+    
+    // 工具方法...
+}
+```
+
+在使用时，可以直接比较枚举值而不是字符串：
+
+```java
+// 推荐的用法
+if (device.getStatus() == DeviceStatus.CONNECTED) {
+    // 设备已连接
+}
+
+// 不再需要字符串比较
+// if ("CONNECTED".equals(device.getStatus()))
 ```
 
 ## 💻 系统要求
